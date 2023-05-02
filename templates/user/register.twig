@@ -1,0 +1,81 @@
+{% extends '__login_layout.twig' %}
+{% import '__macros/html.twig' as html %}
+
+{% block style %}
+    <style>
+        .form-register {
+            width: 100%;
+            max-width: 600px;
+            padding: 15px;
+            margin: auto;
+        }
+
+        input#yes::before {
+            top: -.7em;
+            left: -.7em;
+        }
+
+        input#yes::after {
+            top: -.5em;
+            left: -.5em;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+
+    <main class="form-register">
+
+        <h1 class="mb-3">Join Potot's Gym</h1>
+
+        {% include '__commons/errors.twig' %}
+
+        <form method="post" action="/register">
+            <input type="hidden" name="csrf_key" value="{{ csrf.key }}">
+            <input type="hidden" name="csrf_value" value="{{ csrf.value }}">
+            <div class="form-floating">
+                <input name="email" type="email" class="form-control" id="email" placeholder="Email" required>
+                <label for="email">Email</label>
+                <div class="form-text small">
+                    Not Moogle mail.
+                </div>
+            </div>
+            <div class="form-floating mt-2">
+                <input name="username" type="text" class="form-control" id="username" placeholder="Username" required>
+                <label for="displayname">Username</label>
+                <div class="form-text small">
+                    You will use this for login.
+                </div>
+            </div>
+            <div class="form-floating mt-2">
+                <input name="displayname" type="text" class="form-control" id="displayname" placeholder="Display name" required>
+                <label for="displayname">Display name</label>
+                <div class="form-text small">
+                    Maybe your WoL's name, maybe your pet's name, idk.
+                </div>
+            </div>
+            <div class="form-floating mt-2">
+                <input name="password" type="password" class="form-control" id="password" placeholder="Password" required>
+                <label for="password">Password</label>
+                <div class="form-text small">
+                    Please don't use your party finder password!
+                </div>
+            </div>
+            <div class="form-floating mt-2">
+                <input name="confirm" type="password" class="form-control" id="confirm" placeholder="Confirm password" required>
+                <label for="confirm">Confirm password</label>
+                <div class="form-text small">
+                    Type your password once more, please!
+                </div>
+            </div>
+            <div class="checkbox mt-2">
+                <label>
+                <input name="yes" type="checkbox" id="yes" required> I surrender my soul to Potot
+                </label>
+            </div>
+            <button class="w-100 btn btn-lg btn-info mt-3" type="submit">Register</button>
+        </form>
+
+    </main>
+
+{% endblock %}

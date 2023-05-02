@@ -1,0 +1,47 @@
+{% import '__macros/html.twig' as html %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potot's Gym</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/custom.css">
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .form-login {
+            width: 100%;
+            max-width: 350px;
+            padding: 15px;
+            margin: auto;
+        }
+
+        .form-login .form-floating:focus-within {
+            z-index: 2;
+        }
+    </style>
+    {% block style %}{% endblock %}
+</head>
+
+<body class="text-center">
+
+    {% block main %}{% endblock %}
+
+</body>
+
+</html>

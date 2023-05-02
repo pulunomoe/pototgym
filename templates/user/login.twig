@@ -1,0 +1,43 @@
+{% extends '__login_layout.twig' %}
+
+{% block main %}
+
+    <main class="form-login">
+
+        <h1 class="mb-3">Welcome to<br>Potot's Gym</h1>
+
+        {% if error %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        {% if success %}
+            <div class="alert alert-success">
+                {{ success }}
+            </div>
+        {% endif %}
+
+        <form method="post" action="/login">
+            <input type="hidden" name="csrf_key" value="{{ csrf.key }}">
+            <input type="hidden" name="csrf_value" value="{{ csrf.value }}">
+            <div class="form-floating mt-2">
+                <input name="username" type="text" class="form-control" id="username" placeholder="Username" required>
+                <label for="username">Username</label>
+            </div>
+            <div class="form-floating mt-2">
+                <input name="password" type="password" class="form-control" id="password" placeholder="Password" required>
+                <label for="password">Password</label>
+            </div>
+            <button class="w-100 btn btn-lg btn-success mt-3" type="submit">Login</button>
+            <a class="w-100 mt-2 mb-2 btn btn-info" href="/register">Register</a>
+{#            <a class="w-100" href="/forgot/username">Forgot username?</a>#}
+{#            <br>#}
+{#            <a class="w-100" href="/forgot/password">Forgot password?</a>#}
+            <br>
+            <a class="w-100" href="https://en.wikipedia.org/wiki/Amnesia">Forgot everything?</a>
+        </form>
+
+    </main>
+
+{% endblock %}

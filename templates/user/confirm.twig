@@ -1,0 +1,40 @@
+{% extends '__login_layout.twig' %}
+
+{% block style %}
+    <style>
+        .form-confirm {
+            width: 100%;
+            max-width: 600px;
+            padding: 15px;
+            margin: auto;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+
+    <main class="form-confirm">
+
+        <h1 class="mb-3">You ALMOST Joined<br>Potot's Gym</h1>
+
+        <p>We have sent a SUPER SECRET CODE to your email<br>please enter it below!</p>
+
+        {% if error %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <form method="post" action="/confirm">
+            <input type="hidden" name="csrf_key" value="{{ csrf.key }}">
+            <input type="hidden" name="csrf_value" value="{{ csrf.value }}">
+            <div class="form-floating mt-2">
+                <input name="code" type="text" class="form-control" id="code" placeholder="Code" required>
+                <label for="code">Super secret code</label>
+            </div>
+            <button class="w-100 btn btn-lg btn-success mt-3" type="submit">Let me in already!</button>
+        </form>
+
+    </main>
+
+{% endblock %}

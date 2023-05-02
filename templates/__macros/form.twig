@@ -1,0 +1,185 @@
+{% macro csrf(csrf) %}
+	<input type="hidden" name="csrf_key" value="{{ csrf.key }}">
+	<input type="hidden" name="csrf_value" value="{{ csrf.value }}">
+{% endmacro %}
+
+{% macro hidden(name, value, showAnyway=false) %}
+	{% if value or showAnyway %}
+		<input type="hidden" name="{{ name }}" id="f-{{ name }}" value="{{ value }}">
+	{% endif %}
+{% endmacro %}
+
+{% macro input(name, label, value, required=false, disabled=false, help=false, coll='col-md-3 col-lg-2', colv='col-md-9 col-lg-4') %}
+	<div class="row mb-3">
+		<label for="f-{{ name }}" class="{{ coll }} col-form-label">{{ label }}{% if required %}*{% endif %}</label>
+		<div class="{{ colv }}">
+			<input type="text" name="{{ name }}" id="f-{{ name }}" value="{{ value ?? '' }}" class="form-control form-control-sm" {% if required %}required{% endif %} {% if disabled %}disabled{% endif %}>
+			{% if help %}
+				<div class="form-text">{{ help }}</div>
+			{% endif %}
+		</div>
+	</div>
+{% endmacro %}
+
+{% macro email(name, label, value, required=false, disabled=false, help=false, coll='col-md-3 col-lg-2', colv='col-md-9 col-lg-4') %}
+	<div class="row mb-3">
+		<label for="f-{{ name }}" class="{{ coll}} col-form-label">{{ label }}{% if required %}*{% endif %}</label>
+		<div class="{{ colv }}">
+			<input type="email" name="{{ name }}" id="f-{{ name }}" value="{{ value ?? '' }}" class="form-control form-control-sm" {% if required %}required{% endif %} {% if disabled %}disabled{% endif %}>
+			{% if help %}
+				<div class="form-text">{{ help }}</div>
+			{% endif %}
+		</div>
+	</div>
+{% endmacro %}
+
+{% macro password(name, label, required=false, disabled=false, help=false, coll='col-md-3 col-lg-2', colv='col-md-9 col-lg-4') %}
+	<div class="row mb-3">
+		<label for="f-{{ name }}" class="{{ coll}} col-form-label">{{ label }}{% if required %}*{% endif %}</label>
+		<div class="{{ colv }}">
+			<input type="password" name="{{ name }}" id="f-{{ name }}" class="form-control form-control-sm" {% if required %}required{% endif %} {% if disabled %}disabled{% endif %}>
+			{% if help %}
+				<div class="form-text">{{ help }}</div>
+			{% endif %}
+		</div>
+	</div>
+{% endmacro %}
+
+{% macro number(name, label, value, required=false, disabled=false, help=false, coll='col-md-3 col-lg-2', colv='col-md-9 col-lg-4') %}
+	<div class="row mb-3">
+		<label for="f-{{ name }}" class="{{ coll}} col-form-label">{{ label }}{% if required %}*{% endif %}</label>
+		<div class="{{ colv }}">
+			<input type="number"  name="{{ name }}" id="f-{{ name }}" value="{{ value ?? '' }}" class="form-control form-control-sm" {% if required %}required{% endif %} {% if disabled %}disabled{% endif %}>
+			{% if help %}
+				<div class="form-text">{{ help }}</div>
+			{% endif %}
+		</div>
+	</div>
+{% endmacro %}
+
+{% macro file(name, label, required=false, accept, coll='col-md-3 col-lg-2', colv='col-md-9 col-lg-4') %}
+	<div class="row mb-3">
+		<label for="f-{{ name }}" class="{{ coll}} col-form-label">{{ label }}{% if required %}*{% endif %}</label>
+		<div class="{{ colv }}">
+			<input type="file" accept="{{ accept }}" name="{{ name }}" id="f-{{ name }}" class="form-control form-control-sm" {% if required %}required{% endif %}>
+		</div>
+	</div>
+{% endmacro %}
+
+{% macro select(name, label, options, value, required=false, coll='col-md-3 col-lg-2', colv='col-md-9 col-lg-4') %}
+	<div class="row mb-3">
+		<label for="f-{{ name }}" class="{{ coll }} col-form-label">{{ label }}{% if required %}*{% endif %}</label>
+		<div class="{{ colv }}">
+			<select name="{{ name }}" id="f-{{ name }}" class="form-select form-select-sm" {% if required %}required{% endif %}>
+				{% for v, l in options %}
+					<option value="{{ v }}" {{ v == value ? 'selected' : '' }}>{{ l }}</option>
+				{% endfor %}
+			</select>
+		</div>
+	</div>
+{% endmacro %}
+
+{% macro selectMultiple(name, label, options, values, required=false, coll='col-md-3 col-lg-2', colv='col-md-9 col-lg-4') %}
+	<div class="row mb-3">
+		<label for="f-{{ name }}" class="{{ coll }} col-form-label">{{ label }}{% if required %}*{% endif %}</label>
+		<div class="{{ colv }}">
+			<select name="{{ name }}[]" id="f-{{ name }}" class="form-select form-select-sm" multiple="multiple" {% if required %}required{% endif %}>
+				{% for v, l in options %}
+					{% set selected = false %}
+					{% for value in values %}
+						{% if value == v %}
+							{% set selected = true %}
+						{% endif %}
+					{% endfor %}
+					<option value="{{ v }}" {{ selected ? 'selected' : '' }}>{{ l }}</option>
+				{% endfor %}
+			</select>
+		</div>
+	</div>
+{% endmacro %}
+
+{% macro checkbox(name, label, checked, help=false, coll='col-md-3 col-lg-2', colv='col-md-9 col-lg-4') %}
+	<div class="row mb-3">
+		<label for="f-{{ name }}" class="{{ coll }} col-form-label">{{ label }}</label>
+		<div class="{{ colv }}">
+			<label class="form-check form-switch">
+				<input name="{{ name }}" type="checkbox" id="f-{{ name }}" {% if checked %}checked{% endif %} class="form-check-input">
+			</label>
+			{% if help %}
+				<div class="form-text">{{ help }}</div>
+			{% endif %}
+		</div>
+	</div>
+{% endmacro %}
+
+{% macro textarea(name, label, value, rows=3, coll='col-md-3 col-lg-2', colv='col-md-9 col-lg-4') %}
+	<div class="row mb-3">
+		<label for="f-{{ name }}" class="{{ coll }} col-form-label">{{ label }}</label>
+		<div class="{{ colv }}">
+			<textarea name="{{ name }}" id="f-{{ name }}" rows="{{ rows }}" class="form-control form-control-sm">{{ value ?? '' }}</textarea>
+		</div>
+	</div>
+{% endmacro %}
+
+{% macro image(name, label, value) %}
+	<div class="row mb-3">
+		<label for="f-{{ name }}" class="col-md-3 col-lg-2 col-form-label">{{ label }}</label>
+		<div class="col-md-9 col-lg-4">
+			<input type="file" name="{{ name }}" id="f-{{ name }}" accept="image/*" class="form-control form-control-sm">
+			{% if value %}
+				<img id="f-{{ name }}-preview" src="{{ value }}" class="img-thumbnail w-25 mt-3" height="300">
+			{% else %}
+				<img id="f-{{ name }}-preview" class="img-thumbnail w-25 mt-3" height="300" style="display: none">
+			{% endif %}
+			<input type="hidden" id="f-{{ name }}-image-data" value="{{ value }}">
+		</div>
+	</div>
+	<script>
+		document.querySelector('input#f-{{ name }}').onchange = function () {
+			if (this.files && this.files[0]) {
+				let reader = new FileReader()
+				reader.onload = function (e) {
+					let imgPreview = document.querySelector('img#f-{{ name }}-preview')
+					imgPreview.setAttribute('src', e.target.result)
+					imgPreview.removeAttribute('style')
+					document.querySelector('input#f-{{ name }}-image-data').value = e.target.result
+				}
+				reader.readAsDataURL(this.files[0])
+			}
+		}
+	</script>
+{% endmacro %}
+
+{% macro submit(btn='btn-primary', icon='check', label='Save', reset=true) %}
+	<div class="row">
+		<div class="col-md-3 col-lg-2">
+		</div>
+		<div class="col-md-8 col-lg-4">
+			<button type="submit" class="btn {{ btn }} btn-sm me-2">
+				<span data-feather="{{ icon }}"></span> {{ label }}
+			</button>
+			{% if reset %}
+				<button type="reset" class="btn btn-outline-warning btn-sm">
+					<span data-feather="corner-up-left"></span> Reset
+				</button>
+			{% endif %}
+		</div>
+	</div>
+{% endmacro %}
+
+{% macro confirm(password=false, btn='btn-outline-danger', icon='trash-2', label='Yes, I\'m sure') %}
+	{% if password %}
+		{{ _self.password('password', 'Password', true) }}
+		<div class="row">
+			<div class="col-md-3 col-lg-2">
+			</div>
+			<div class="col-md-8 col-lg-4">
+	{% endif %}
+	<button type="submit" class="btn {{ btn }} btn-sm me-2">
+		<span data-feather="{{ icon }}"></span> {{ label }}
+	</button>
+	{% if password %}
+			</div>
+		</div>
+	{% endif %}
+{% endmacro %}

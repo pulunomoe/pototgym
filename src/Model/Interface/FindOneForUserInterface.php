@@ -1,0 +1,8 @@
+<?php
+
+namespace Com\Pulunomoe\PototGym\Model\Interface;
+
+interface FindOneForUserInterface
+{
+    public function findOne(string $code, string $userCode): array|bool;
+}

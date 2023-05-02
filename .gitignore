@@ -1,0 +1,6 @@
+.idea
+vendor
+.env
+composer.lock
+pototgym.mwb
+pototgym.mwb.bak

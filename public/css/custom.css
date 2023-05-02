@@ -1,0 +1,23 @@
+html {
+    overflow-y: scroll;
+}
+
+body, html {
+    min-height: 100%;
+    background-image: url("/img/bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: "Patrick Hand", cursive;
+    color: #555555;
+    font-size: 120%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Patrick Hand", cursive;
+}
+
+
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Patrick Hand", cursive;
+}
