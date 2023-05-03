@@ -1,7 +1,53 @@
 {% extends '__mainLayout.twig' %}
+{% import '__macros/html.twig' as html %}
 
 {% block main %}
 
     {% include '__commons/success.twig' %}
+
+    <div class="{{ html.headerClass() }}">
+        <h2 class="h5">Dashboard</h2>
+    </div>
+
+    <div class="d-flex flex-row flex-wrap justify-content-between">
+        <a href="/exercises/cardios/form" class="btn btn-success flex-fill me-3 mb-3">
+            <span data-feather="heart"></span> New Cardio Exercises
+        </a>
+        <a href="/cardios/form" class="btn btn-success flex-fill me-3 mb-3">
+            <span data-feather="anchor"></span> New Weight Exercises
+        </a>
+        <a href="/cardios/form" class="btn btn-info flex-fill me-3 mb-3">
+            <span data-feather="gift"></span> Log Food Intake
+        </a>
+        <a href="/cardios/form" class="btn btn-warning flex-fill mb-3">
+            <span data-feather="archive"></span> Log Body Weight
+        </a>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">1800</h5>
+                    <p class="card-text">Calories in</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">2200</h5>
+                    <p class="card-text">Calories out</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">-400</h5>
+                    <p class="card-text">Calories balance</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

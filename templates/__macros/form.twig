@@ -57,15 +57,6 @@
 	</div>
 {% endmacro %}
 
-{% macro file(name, label, required=false, accept, coll='col-md-3 col-lg-2', colv='col-md-9 col-lg-4') %}
-	<div class="row mb-3">
-		<label for="f-{{ name }}" class="{{ coll}} col-form-label">{{ label }}{% if required %}*{% endif %}</label>
-		<div class="{{ colv }}">
-			<input type="file" accept="{{ accept }}" name="{{ name }}" id="f-{{ name }}" class="form-control" {% if required %}required{% endif %}>
-		</div>
-	</div>
-{% endmacro %}
-
 {% macro select(name, label, options, value, required=false, coll='col-md-3 col-lg-2', colv='col-md-9 col-lg-4') %}
 	<div class="row mb-3">
 		<label for="f-{{ name }}" class="{{ coll }} col-form-label">{{ label }}{% if required %}*{% endif %}</label>
@@ -79,32 +70,11 @@
 	</div>
 {% endmacro %}
 
-{% macro selectMultiple(name, label, options, values, required=false, coll='col-md-3 col-lg-2', colv='col-md-9 col-lg-4') %}
+{% macro date(name, label, value, required=false, disabled=false, help=false, coll='col-md-3 col-lg-2', colv='col-md-9 col-lg-4') %}
 	<div class="row mb-3">
 		<label for="f-{{ name }}" class="{{ coll }} col-form-label">{{ label }}{% if required %}*{% endif %}</label>
 		<div class="{{ colv }}">
-			<select name="{{ name }}[]" id="f-{{ name }}" class="form-select form-select-sm" multiple="multiple" {% if required %}required{% endif %}>
-				{% for v, l in options %}
-					{% set selected = false %}
-					{% for value in values %}
-						{% if value == v %}
-							{% set selected = true %}
-						{% endif %}
-					{% endfor %}
-					<option value="{{ v }}" {{ selected ? 'selected' : '' }}>{{ l }}</option>
-				{% endfor %}
-			</select>
-		</div>
-	</div>
-{% endmacro %}
-
-{% macro checkbox(name, label, checked, help=false, coll='col-md-3 col-lg-2', colv='col-md-9 col-lg-4') %}
-	<div class="row mb-3">
-		<label for="f-{{ name }}" class="{{ coll }} col-form-label">{{ label }}</label>
-		<div class="{{ colv }}">
-			<label class="form-check form-switch">
-				<input name="{{ name }}" type="checkbox" id="f-{{ name }}" {% if checked %}checked{% endif %} class="form-check-input">
-			</label>
+			<input type="date" name="{{ name }}" id="f-{{ name }}" value="{{ value ?? '' }}" class="form-control form-control-sm" {% if required %}required{% endif %} {% if disabled %}disabled{% endif %}>
 			{% if help %}
 				<div class="form-text">{{ help }}</div>
 			{% endif %}
@@ -136,21 +106,4 @@
 			{% endif %}
 		</div>
 	</div>
-{% endmacro %}
-
-{% macro confirm(password=false, btn='btn-outline-danger', icon='trash-2', label='Yes, I\'m sure') %}
-	{% if password %}
-		{{ _self.password('password', 'Password', true) }}
-		<div class="row">
-			<div class="col-md-3 col-lg-2">
-			</div>
-			<div class="col-md-8 col-lg-4">
-	{% endif %}
-	<button type="submit" class="btn {{ btn }} btn-sm me-2">
-		<span data-feather="{{ icon }}"></span> {{ label }}
-	</button>
-	{% if password %}
-			</div>
-		</div>
-	{% endif %}
 {% endmacro %}

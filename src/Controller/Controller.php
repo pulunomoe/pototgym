@@ -69,7 +69,7 @@ abstract class Controller
 
     protected function findOneForUserOr404(ServerRequest $request, FindOneForUserInterface $model, string $code): ?array
     {
-        $object = $model->findOne($code, $_SESSION['user']['code']);
+        $object = $model->findOne($code, $_SESSION['user']['id']);
         if (empty($object)) {
             throw new HttpNotFoundException($request);
         }

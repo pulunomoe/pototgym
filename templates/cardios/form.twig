@@ -1,0 +1,27 @@
+{% extends '__mainLayout.twig' %}
+{% import '__macros/html.twig' as html %}
+{% import '__macros/form.twig' as form %}
+
+{% block main %}
+
+    {% include '__commons/errors.twig' %}
+
+    <div class="{{ html.headerClass() }}">
+        <h2 class="h5">{{ not cardio ? 'Add new' : 'Edit' }} cardio exercises</h2>
+        <a href="/exercises/cardios" class="btn btn-sm btn-secondary">
+            <span data-feather="arrow-left"></span> Back to list
+        </a>
+    </div>
+
+    <form method="post" action="/exercises/cardios/form">
+        {{ form.csrf(csrf) }}
+        {{ form.hidden('code', cardio.code) }}
+        {{ form.date('date', 'Date', cardio.date, true) }}
+        {{ form.input('name', 'Exercise name', cardio.name, true) }}
+        {{ form.number('time', 'Time (minutes)', cardio.time ?? 0) }}
+        {{ form.number('calories', 'Calories', cardio.calories ?? 0) }}
+        {{ form.textarea('description', 'Description', cardio.description) }}
+        {{ form.submit() }}
+    </form>
+
+{% endblock %}

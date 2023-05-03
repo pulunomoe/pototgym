@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/custom.css">
+    {% block head %}{% endblock %}
 </head>
 
 <body class="container">
@@ -23,14 +24,15 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link active" href="/dashboard">
-                            Home
+                            <span data-feather="home"></span> Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="/exercises/cardios">
+                            <span data-feather="activity"></span> My Exercises
+                        </a>
                     </li>
                 </ul>
-                <div class="w-100"></div>
                 <div class="navbar-nav">
                     <div class="nav-item text-nowrap dropdown">
                         <a href="#" class="nav-link dropdown-toggle px-3" data-bs-toggle="dropdown">Hi, {{ session.user.displayname }}!</a>
@@ -83,6 +85,8 @@
             feather.replace()
         })()
     </script>
+
+    {% block script %}{% endblock %}
 
 </body>
 

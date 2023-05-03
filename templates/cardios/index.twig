@@ -1,0 +1,85 @@
+{% extends '__mainLayout.twig' %}
+{% import '__macros/html.twig' as html %}
+{% import '__macros/form.twig' as form %}
+
+{% block head %}
+    <link rel="stylesheet" href="/css/datatables.min.css">
+{% endblock %}
+
+{% block main %}
+
+    {% include '__commons/success.twig' %}
+
+    <div class="{{ html.headerClass() }}">
+        <h2 class="h5">My exercises</h2>
+        <ul class="nav nav-tabs" id="cardiosTab">
+            <li class="nav-item">
+                <a class="nav-link active" href="/exercises/cardios" type="button">
+                    <span data-feather="heart"></span> Cardios
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/exercises/weights" type="button">
+                    <span data-feather="anchor"></span> Weights
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Time</th>
+                <th>Calories</th>
+                <th>Description</th>
+                <th width="1%"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="/js/datatables.min.js"></script>
+    <script>
+        (function () {
+            $.fn.dataTable.ext.errMode = 'throw'
+
+            let table = $('table').DataTable({
+                'processing': true,
+                'serverSide': true,
+                'ajax': '/exercises/cardios/table',
+                'columns': [
+                    {'data': 'date'},
+                    {'data': 'name'},
+                    {'data': 'time'},
+                    {'data': 'calories'},
+                    {'data': 'description', 'orderable': false},
+                    {'data': function (r) {
+                        let links = '<div class="btn-group btn-group-sm">'
+                        links += `<a href="/exercises/cardios/form/${r.code}" title="Edit" class="btn btn-sm btn-outline-info"><span data-feather="edit"></span></a>`
+                        links += '</div>'
+                        return links
+                    }, 'orderable': false}
+                ]
+            })
+            table.on('draw', function () {
+                feather.replace()
+            })
+        })()
+    </script>
+{% endblock %}

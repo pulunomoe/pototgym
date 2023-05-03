@@ -1,5 +1,6 @@
 <?php
 
+use Com\Pulunomoe\PototGym\Controller\CardioController;
 use Com\Pulunomoe\PototGym\Controller\UserController;
 use Com\Pulunomoe\PototGym\Middleware\AuthMiddleware;
 use Dotenv\Dotenv;
@@ -72,6 +73,13 @@ $app->get('/update/password', [$userController, 'updatePassword'])->add($auth);
 $app->post('/update/password', [$userController, 'updatePasswordPost'])->add($auth);
 $app->get('/logout', [$userController, 'logout']);
 $app->get('/dashboard', [$userController, 'dashboard'])->add($auth);
+
+$cardioController = new CardioController($pdo);
+$app->get('/exercises/cardios', [$cardioController, 'index']);
+$app->get('/exercises/cardios/table', [$cardioController, 'table']);
+$app->get('/exercises/cardios/form[/{code}]', [$cardioController, 'form']);
+$app->post('/exercises/cardios/form', [$cardioController, 'formPost']);
+
 
 // CORS
 
