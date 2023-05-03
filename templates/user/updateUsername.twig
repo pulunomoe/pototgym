@@ -1,0 +1,17 @@
+{% extends '__mainLayout.twig' %}
+{% import '__macros/html.twig' as html %}
+{% import '__macros/form.twig' as form %}
+
+{% block main %}
+
+    <h2 class="h5 mb-3">Update Your Username</h2>
+
+    {% include '__commons/errors.twig' %}
+
+    <form method="post" action="/update/username">
+        {{ form.csrf(csrf) }}
+        {{ form.input('username', 'New username', '', true) }}
+        {{ form.submit() }}
+    </form>
+
+{% endblock %}

@@ -2,6 +2,7 @@
 
 use Com\Pulunomoe\PototGym\Controller\UserController;
 use Com\Pulunomoe\PototGym\Middleware\AuthMiddleware;
+use Dotenv\Dotenv;
 use Slim\Exception\HttpNotFoundException;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
@@ -19,7 +20,7 @@ function debug(mixed $object): void
     die(json_encode($object));
 }
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
 $pdo = new PDO($_ENV['DB_URL'], $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD'],
@@ -28,6 +29,7 @@ $pdo = new PDO($_ENV['DB_URL'], $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD'],
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     ]
 );
+
 $app = AppFactory::create();
 $app->addErrorMiddleware(filter_var($_ENV['APP_DEBUG'], FILTER_VALIDATE_BOOL), true, true);
 
@@ -56,6 +58,18 @@ $app->get('/register', [$userController, 'register']);
 $app->post('/register', [$userController, 'registerPost']);
 $app->get('/confirm', [$userController, 'confirm']);
 $app->post('/confirm', [$userController, 'confirmPost']);
+$app->get('/forgot/username', [$userController, 'forgotUsername']);
+$app->post('/forgot/username', [$userController, 'forgotUsernamePost']);
+$app->get('/forgot/password', [$userController, 'forgotPassword']);
+$app->post('/forgot/password', [$userController, 'forgotPasswordPost']);
+$app->get('/update/profile', [$userController, 'updateProfile'])->add($auth);
+$app->post('/update/profile', [$userController, 'updateProfilePost'])->add($auth);
+$app->get('/update/email', [$userController, 'updateEmail'])->add($auth);
+$app->post('/update/email', [$userController, 'updateEmailPost'])->add($auth);
+$app->get('/update/username', [$userController, 'updateUsername'])->add($auth);
+$app->post('/update/username', [$userController, 'updateUsernamePost'])->add($auth);
+$app->get('/update/password', [$userController, 'updatePassword'])->add($auth);
+$app->post('/update/password', [$userController, 'updatePasswordPost'])->add($auth);
 $app->get('/logout', [$userController, 'logout']);
 $app->get('/dashboard', [$userController, 'dashboard'])->add($auth);
 

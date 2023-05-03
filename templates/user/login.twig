@@ -1,4 +1,4 @@
-{% extends '__login_layout.twig' %}
+{% extends '__userLayout.twig' %}
 
 {% block main %}
 
@@ -31,9 +31,9 @@
             </div>
             <button class="w-100 btn btn-lg btn-success mt-3" type="submit">Login</button>
             <a class="w-100 mt-2 mb-2 btn btn-info" href="/register">Register</a>
-{#            <a class="w-100" href="/forgot/username">Forgot username?</a>#}
-{#            <br>#}
-{#            <a class="w-100" href="/forgot/password">Forgot password?</a>#}
+            <a class="w-100" href="/forgot/username">Forgot username?</a>
+            <br>
+            <a class="w-100" href="/forgot/password">Forgot password?</a>
             <br>
             <a class="w-100" href="https://en.wikipedia.org/wiki/Amnesia">Forgot everything?</a>
         </form>

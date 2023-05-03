@@ -13,7 +13,7 @@
 	<div class="row mb-3">
 		<label for="f-{{ name }}" class="{{ coll }} col-form-label">{{ label }}{% if required %}*{% endif %}</label>
 		<div class="{{ colv }}">
-			<input type="text" name="{{ name }}" id="f-{{ name }}" value="{{ value ?? '' }}" class="form-control form-control-sm" {% if required %}required{% endif %} {% if disabled %}disabled{% endif %}>
+			<input type="text" name="{{ name }}" id="f-{{ name }}" value="{{ value ?? '' }}" class="form-control" {% if required %}required{% endif %} {% if disabled %}disabled{% endif %}>
 			{% if help %}
 				<div class="form-text">{{ help }}</div>
 			{% endif %}
@@ -25,7 +25,7 @@
 	<div class="row mb-3">
 		<label for="f-{{ name }}" class="{{ coll}} col-form-label">{{ label }}{% if required %}*{% endif %}</label>
 		<div class="{{ colv }}">
-			<input type="email" name="{{ name }}" id="f-{{ name }}" value="{{ value ?? '' }}" class="form-control form-control-sm" {% if required %}required{% endif %} {% if disabled %}disabled{% endif %}>
+			<input type="email" name="{{ name }}" id="f-{{ name }}" value="{{ value ?? '' }}" class="form-control" {% if required %}required{% endif %} {% if disabled %}disabled{% endif %}>
 			{% if help %}
 				<div class="form-text">{{ help }}</div>
 			{% endif %}
@@ -37,7 +37,7 @@
 	<div class="row mb-3">
 		<label for="f-{{ name }}" class="{{ coll}} col-form-label">{{ label }}{% if required %}*{% endif %}</label>
 		<div class="{{ colv }}">
-			<input type="password" name="{{ name }}" id="f-{{ name }}" class="form-control form-control-sm" {% if required %}required{% endif %} {% if disabled %}disabled{% endif %}>
+			<input type="password" name="{{ name }}" id="f-{{ name }}" class="form-control" {% if required %}required{% endif %} {% if disabled %}disabled{% endif %}>
 			{% if help %}
 				<div class="form-text">{{ help }}</div>
 			{% endif %}
@@ -49,7 +49,7 @@
 	<div class="row mb-3">
 		<label for="f-{{ name }}" class="{{ coll}} col-form-label">{{ label }}{% if required %}*{% endif %}</label>
 		<div class="{{ colv }}">
-			<input type="number"  name="{{ name }}" id="f-{{ name }}" value="{{ value ?? '' }}" class="form-control form-control-sm" {% if required %}required{% endif %} {% if disabled %}disabled{% endif %}>
+			<input type="number"  name="{{ name }}" id="f-{{ name }}" value="{{ value ?? '' }}" class="form-control" {% if required %}required{% endif %} {% if disabled %}disabled{% endif %}>
 			{% if help %}
 				<div class="form-text">{{ help }}</div>
 			{% endif %}
@@ -61,7 +61,7 @@
 	<div class="row mb-3">
 		<label for="f-{{ name }}" class="{{ coll}} col-form-label">{{ label }}{% if required %}*{% endif %}</label>
 		<div class="{{ colv }}">
-			<input type="file" accept="{{ accept }}" name="{{ name }}" id="f-{{ name }}" class="form-control form-control-sm" {% if required %}required{% endif %}>
+			<input type="file" accept="{{ accept }}" name="{{ name }}" id="f-{{ name }}" class="form-control" {% if required %}required{% endif %}>
 		</div>
 	</div>
 {% endmacro %}
@@ -116,38 +116,9 @@
 	<div class="row mb-3">
 		<label for="f-{{ name }}" class="{{ coll }} col-form-label">{{ label }}</label>
 		<div class="{{ colv }}">
-			<textarea name="{{ name }}" id="f-{{ name }}" rows="{{ rows }}" class="form-control form-control-sm">{{ value ?? '' }}</textarea>
+			<textarea name="{{ name }}" id="f-{{ name }}" rows="{{ rows }}" class="form-control">{{ value ?? '' }}</textarea>
 		</div>
 	</div>
-{% endmacro %}
-
-{% macro image(name, label, value) %}
-	<div class="row mb-3">
-		<label for="f-{{ name }}" class="col-md-3 col-lg-2 col-form-label">{{ label }}</label>
-		<div class="col-md-9 col-lg-4">
-			<input type="file" name="{{ name }}" id="f-{{ name }}" accept="image/*" class="form-control form-control-sm">
-			{% if value %}
-				<img id="f-{{ name }}-preview" src="{{ value }}" class="img-thumbnail w-25 mt-3" height="300">
-			{% else %}
-				<img id="f-{{ name }}-preview" class="img-thumbnail w-25 mt-3" height="300" style="display: none">
-			{% endif %}
-			<input type="hidden" id="f-{{ name }}-image-data" value="{{ value }}">
-		</div>
-	</div>
-	<script>
-		document.querySelector('input#f-{{ name }}').onchange = function () {
-			if (this.files && this.files[0]) {
-				let reader = new FileReader()
-				reader.onload = function (e) {
-					let imgPreview = document.querySelector('img#f-{{ name }}-preview')
-					imgPreview.setAttribute('src', e.target.result)
-					imgPreview.removeAttribute('style')
-					document.querySelector('input#f-{{ name }}-image-data').value = e.target.result
-				}
-				reader.readAsDataURL(this.files[0])
-			}
-		}
-	</script>
 {% endmacro %}
 
 {% macro submit(btn='btn-primary', icon='check', label='Save', reset=true) %}
@@ -159,7 +130,7 @@
 				<span data-feather="{{ icon }}"></span> {{ label }}
 			</button>
 			{% if reset %}
-				<button type="reset" class="btn btn-outline-warning btn-sm">
+				<button type="reset" class="btn btn-warning btn-sm">
 					<span data-feather="corner-up-left"></span> Reset
 				</button>
 			{% endif %}

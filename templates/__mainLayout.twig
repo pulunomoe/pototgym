@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potot's Gym</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/custom.css">
+</head>
+
+<body class="container">
+
+    <nav class="navbar navbar-expand-lg pb-0 border-0 border-bottom border-dark mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/dashboard">Potot's Gym</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/dashboard">
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                </ul>
+                <div class="w-100"></div>
+                <div class="navbar-nav">
+                    <div class="nav-item text-nowrap dropdown">
+                        <a href="#" class="nav-link dropdown-toggle px-3" data-bs-toggle="dropdown">Hi, {{ session.user.displayname }}!</a>
+                        <ul class="dropdown-menu position-absolute dropdown-menu-md-end">
+                            <li>
+                                <a href="/update/profile" class="dropdown-item">
+                                    <span data-feather="user"></span> Update profile
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/update/email" class="dropdown-item">
+                                    <span data-feather="mail"></span> Update email
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/update/username" class="dropdown-item">
+                                    <span data-feather="monitor"></span> Update username
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/update/password" class="dropdown-item">
+                                    <span data-feather="key"></span> Update password
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a href="/logout" class="dropdown-item">
+                                    <span data-feather="log-out"></span> Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/feather.min.js"></script>
+
+    <script>
+        (function () {
+            feather.replace()
+        })()
+    </script>
+
+</body>
+
+</html>

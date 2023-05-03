@@ -1,0 +1,17 @@
+{% extends '__mainLayout.twig' %}
+{% import '__macros/html.twig' as html %}
+{% import '__macros/form.twig' as form %}
+
+{% block main %}
+
+    <h2 class="h5 mb-3">Update Your Email</h2>
+
+    {% include '__commons/errors.twig' %}
+
+    <form method="post" action="/update/email">
+        {{ form.csrf(csrf) }}
+        {{ form.email('email', 'New email', '', true) }}
+        {{ form.submit() }}
+    </form>
+
+{% endblock %}
